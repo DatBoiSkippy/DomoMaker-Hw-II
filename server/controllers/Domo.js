@@ -1,3 +1,4 @@
+const { response } = require('express');
 const models = require('../models');
 const Domo = models.Domo;
 
@@ -47,11 +48,12 @@ const deleteDomos = async (req, res) => {
         const query = { owner: req.session.account._id };
         console.log(query);
         await Domo.collection('domos').deleteOne(query);
+        return res.status(201).json({ success: 'Deleted Domo!'});
     } catch (err) {
         console.log(err);
         return res.status(500).json({ error: 'Error deleting domos!' });
     }
-}
+};
 
 module.exports = {
     makerPage,
